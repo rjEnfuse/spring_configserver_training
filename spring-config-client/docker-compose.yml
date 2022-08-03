@@ -1,0 +1,7 @@
+
+version: "3.5"
+services:
+  client:
+    build: ./
+    ports:
+      - "8083:8083"

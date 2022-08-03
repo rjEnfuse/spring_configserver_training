@@ -1,0 +1,9 @@
+
+spring.application.name: springextconfig
+management.endpoints.web.exposure.include: "*"
+#spring.could.config.uri=http://localhost:8080
+spring.config.import: http://${CONFIG_SERVER_HOST}:8085/
+
+spring.datasource.platform: postgres
+
+server.port: 8083

@@ -1,0 +1,9 @@
+
+version: "3.5"
+services:
+  config_server:
+    build: ./
+    ports:
+      - "8085:8085"
+    expose:
+      - "8085"

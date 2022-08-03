@@ -1,0 +1,41 @@
+
+version: "3.5"
+services:
+  config_server:
+    build: 
+      context: ./
+      dockerfile: config_server_dockerfile
+    image: config_server
+    container_name: configserver
+    hostname: config_server
+    ports:
+      - "8085:8085"
+
+  db:
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: superpswd
+
+    volumes: 
+          # copy the sql script to create tables
+      - ./postgres_init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+  
+  
+  client:
+    build:
+      context: ./
+      dockerfile: config_client_dockerfile
+    image: config_serv_client
+    ports:
+      - "8083:8083"
+    links:
+      - config_server
+    environment:
+      WAIT_HOSTS: config_server:8085, db:5432
+      WAIT_TIMEOUT: 40
+      WAIT_LOGGER_LEVEL: info
+      CONFIG_SERVER_HOST: configserver

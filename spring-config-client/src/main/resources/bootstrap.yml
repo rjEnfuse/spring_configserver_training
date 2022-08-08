@@ -1,0 +1,4 @@
+
+spring.config.name: configapp
+spring.config.import: http://${CONFIG_SERVER_HOST}:8085/
+
